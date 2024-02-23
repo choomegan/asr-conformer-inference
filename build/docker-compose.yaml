@@ -1,0 +1,25 @@
+version: '3.9'
+
+services:
+
+  local:
+    stdin_open: true
+    tty: true
+    image: conformer-inference:v0.0.1
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - capabilities: [gpu]
+    ports:
+      - 8080:8000 # out: in
+    volumes:
+      - ../:/workspace
+      - /mnt/c/Projects/datasets:/datasets
+
+    ulimits:
+      memlock: -1
+      stack: 67108864
+    shm_size: 16gb
+    working_dir: /workspace
+    command: ["uvicorn", "src.main:api", "--host", "0.0.0.0", "--port", "8000"] # container port
