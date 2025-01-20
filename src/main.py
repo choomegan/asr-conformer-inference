@@ -1,3 +1,7 @@
+"""
+Running conformer as a service
+"""
+
 from fastapi import FastAPI
 from pydantic import BaseModel
 from src.asr import ASRService
