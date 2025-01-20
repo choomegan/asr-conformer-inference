@@ -28,4 +28,9 @@ RUN python3 -m pip install --upgrade pip setuptools wheel && \
 COPY requirements.txt .
 RUN pip3 install -r requirements.txt
 
+# install kenlm decoding binaries
+RUN git clone "https://github.com/NVIDIA/NeMo.git"
+RUN mv /workspace/NeMo /workspace/nemo
+RUN cd /workspace/nemo/scripts/asr_language_modeling/ngram_lm && ./install_beamsearch_decoders.sh
+
 WORKDIR /workspace
